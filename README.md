@@ -16,4 +16,4 @@ Comments<br>
 Type - probably needs recursion or regex or something
  {Type} { return token(tok.TYPE, yytext()); }
 <br><br> 
- Type = [A-Z]+[a-zA-Z]*
+ Type = [A-Z][_a-zA-Z]*
