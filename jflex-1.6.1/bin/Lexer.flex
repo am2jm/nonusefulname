@@ -34,9 +34,9 @@
  Type = [A-Z][a-zA-Z_]*
  String = \"([^\\\"]|\\.)*\"
  
- SingleLineParen =[(][*].*[*][)]
+ //SingleLineParen =[(][*].*[*][)]
  HypenComments = [-][-].*
- ParenComments = [(][*]
+ ParenComments = [(][*].*([*][)]){0, 1}
 
 %%
 
@@ -96,18 +96,37 @@
 	{Identifier}	{ return token(tok.IDENT, yytext()); }
 	{IntegerLiteral}	{ return token(tok.INT, yytext()); }
 	
-	{SingleLineParen}	{ /* ignore */}
+	//{SingleLineParen}	{ 
+	//	System.out.println("Why not!");
+	//}
 	{HypenComments} { /* ignore */ }
-	{ParenComments} { yybegin(Comment); }
+	{ParenComments} { 
+		if( !(yytext().contains("*)")) ){
+			System.out.println("Does not have *)");
+			System.out.println(yytext()+ ": was it:" + yyline+1);
+			yybegin(Comment);
+		}			
+	}
 
 	[ \t\n]  { /* ignore */ }
 }
 
 
   <Comment>{
-  	[ \t\n]	{ /* ignore */ }
-    .*[*][)] 	{ yybegin(YYINITIAL); }
-	[*].*	{ /* ignore */ }
+  	[ \t\n]  { 
+		//System.out.println("My text whitespace:" + yytext());
+		}
+    .*[*][)] 	{ 
+		//System.out.println("My text return:" + yytext());
+		yybegin(YYINITIAL); }
+	[*].*	{ 
+		//System.out.println("My text star:" + yytext());
+		
+		}
+	(.*)+ 	{ 
+		//System.out.println("My text text:" + yytext());
+		
+		}
 	
 	//s[\n]	{ yybegin(YYINITIAL); }
 	///* [^*](.*)+	{ yybegin(YYINITIAL); } */
