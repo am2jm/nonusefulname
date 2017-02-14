@@ -116,15 +116,15 @@
   	[ \t\n]  { 
 		//System.out.println("My text whitespace:" + yytext());
 		}
-    .*[*][)] 	{ 
+    .*[*][)][ \t]* 	{ 
 		//System.out.println("My text return:" + yytext());
 		yybegin(YYINITIAL); }
 	[*].*	{ 
-		//System.out.println("My text star:" + yytext());
+		//System.out.println("My text star:" + yytext() + ":end");
 		
 		}
 	(.*)+ 	{ 
-		//System.out.println("My text text:" + yytext());
+		//System.out.println("My text text:" + yytext() + ":end");
 		
 		}
 	
