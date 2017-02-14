@@ -32,7 +32,9 @@
  IntegerLiteral = [0-9]+
  Type = [A-Z][a-zA-Z_]*
  String = \"([^\\\"]|\\.)*\"
- Comments = [-][-].*
+ HypenComments = [-][-].*
+ ParenComments = [(*].*[*)]
+ CommentStar = [*].*
 
 %%
 
@@ -89,7 +91,9 @@
 	{Type} { return token(tok.TYPE, yytext()); }
 	{Identifier} { return token(tok.IDENT, yytext()); }
 	{IntegerLiteral} { return token(tok.INT, yytext()); }
-  {Comments} {}
+  {HypenComments} {}
+  {ParenComments} {}
+  {CommentStar} {}
 
 	[ \t\n]  { /* ignore */ }
 }
