@@ -14,6 +14,7 @@
 %line
 %column
 %type Token
+%state Comment
 
 %{
    // Code in here is copied verbatim into the Lexer class
@@ -33,8 +34,7 @@
  Type = [A-Z][a-zA-Z_]*
  String = \"([^\\\"]|\\.)*\"
  HypenComments = [-][-].*
- ParenComments = [(*].*[*)]
- CommentStar = [*].*
+ ParenComments = [(][*]
 
 %%
 
@@ -85,15 +85,19 @@
 
 
 	{String} {
-  String temp = yytext();
-  temp = temp.substring(1, temp.length()-1);
-  return token(tok.STRING, temp); }
+    String temp = yytext();
+    temp = temp.substring(1, temp.length()-1);
+    return token(tok.STRING, temp);
+  }
+
 	{Type} { return token(tok.TYPE, yytext()); }
 	{Identifier} { return token(tok.IDENT, yytext()); }
 	{IntegerLiteral} { return token(tok.INT, yytext()); }
   {HypenComments} {}
-  {ParenComments} {}
-  {CommentStar} {}
+  {ParenComments} { yybegin(Comment); }
 
-	[ \t\n]  { /* ignore */ }
+  [ \t\n]  { /* ignore */ }
+}
+  <Comment>{
+    [*][)]    {yybegin(YYINITIAL);}
 }
