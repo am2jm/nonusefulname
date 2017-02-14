@@ -18,11 +18,9 @@ public class Token {
 
     public String toString() {
         if(this.lexeme == null) {
-            return this.line + "\n"+
-                         this.tokType;
+            return this.line + "\n"+ this.tokType;
         } else {
-            return this.line + "\n" +
-                         this.tokType + "\n" + this.lexeme;
+            return this.line + "\n" + this.tokType + "\n" + this.lexeme;
         }
     }
 }

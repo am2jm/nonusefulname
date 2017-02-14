@@ -30,6 +30,8 @@
  // define some "macro" regular expressions
  Identifier = [a-z][_A-Za-z0-9]*
  IntegerLiteral = [0-9]+
+ Type = [A-Z][a-zA-Z]* 
+ String = "(.*?)"
 
 %%
 
@@ -71,20 +73,18 @@
    "of" {return token(tok.OF);}
    ")" {return token(tok.RPAREN);}
    "semi" {return token(tok.SEMI); }
-   "String" {return token(tok.STRING); }
    "then" {return token(tok.THEN); }
    "*" {return token(tok.TIMES); }
-    "true" {return token(tok.TRUE); }
-    "type" {return token(tok.TYPE);}
-    "while" {return token(tok.WHILE);}
+   "true" {return token(tok.TRUE); }
+   "while" {return token(tok.WHILE);}
 
 
 
+	
+	{String} { return token(tok.STRING, yytext()); } 
+	{Type} { return token(tok.TYPE, yytext()); } 
+	{Identifier} { return token(tok.IDENT, yytext()); }
+	{IntegerLiteral} { return token(tok.INT, yytext()); }
 
-
-
-   {Identifier} { return token(tok.IDENT, yytext()); }
-   {IntegerLiteral} { return token(tok.INT, yytext()); }
-
-   [ \t\n]  { /* ignore */ }
+	[ \t\n]  { /* ignore */ }
 }
