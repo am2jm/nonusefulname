@@ -44,23 +44,20 @@
 <YYINITIAL> {
  	"@"     { return token(tok.AT); }
  	"case"  { return token(tok.CASE); }
- 	[Cc][Ll][Aa][Ss][Ss] { return token(tok.CLASS); }
+ 	[Cc][Ll][Aa][Ss][Ss]	{ return token(tok.CLASS); }
  	":"     { return token(tok.COLON); }
  	","     { return token(tok.COMMA); }
  	"/"     { return token(tok.DIVIDE); }
  	"."     { return token(tok.DOT); }
- 	"else"  { return token(tok.ELSE); }
-  "Else"  { return token(tok.ELSE); }
+ 	[Ee][Ll][Ss][Ee]  		{ return token(tok.ELSE); }
  	"=" 	{ return token(tok.EQUALS); }
- 	"esac" 	{return token(tok.ESAC); }
-  "Esac" 	{return token(tok.ESAC); }
- 	"false" {return token(tok.FALSE); }
-  "False" {return token(tok.FALSE); }
- 	"fi" 	{return token(tok.FI); }
- 	"if" 	{return token(tok.IF); }
- 	"in" 	{return token(tok.IN); }
- 	"inherits"	{return token(tok.INHERITS); }
- 	"isvoid" 	{return token(tok.ISVOID); }
+ 	[Ee][Ss][Aa][Cc] 		{return token(tok.ESAC); }
+ 	[Ff][Aa][Ll][Ss][Ee] 	{return token(tok.FALSE); }
+ 	[Ff][Ii] 	{return token(tok.FI); }
+ 	[Ii][Ff] 	{return token(tok.IF); }
+ 	[Ii][Nn] 	{return token(tok.IN); }
+ 	[Ii][Nn][Hh][Ee][Rr][Ii][Tt][Ss]	{return token(tok.INHERITS); }
+ 	[Ii][Ss][Vv][Oo][Ii][Dd]			{return token(tok.ISVOID); }
  	"<-" 	{return token(tok.LARROW); }
  	"{" 	{return token(tok.LBRACE); }
  	"<=" 	{return token(tok.LE); }
@@ -71,20 +68,20 @@
  	"}" 	{return token(tok.RBRACE); }
  	";" 	{return token(tok.SEMI); }
  	"~" 	{return token(tok.TILDE); }
- 	"loop" 	{return token(tok.LOOP); }
+ 	[Ll][Oo][Oo][Pp]	{return token(tok.LOOP); }
  	"-" 	{return token(tok.MINUS); }
- 	"new" 	{return token(tok.NEW); }
- 	"not" 	{return token(tok.NOT); }
- 	"of" 	{return token(tok.OF); }
+ 	[Nn][Ee][Ww]	 	{return token(tok.NEW); }
+ 	[Nn][Oo][Tt]	 	{return token(tok.NOT); }
+ 	[Oo][Ff]	 		{return token(tok.OF); }
  	"+" 	{return token(tok.PLUS);}
- 	"pool" 	{return token(tok.POOL);}
- 	"of" 	{return token(tok.OF);}
+ 	[Pp][Oo][Oo][Ll]	{return token(tok.POOL);}
+ 	[Oo][Ff]			{return token(tok.OF);}
  	")" 	{return token(tok.RPAREN);}
- 	"semi" 	{return token(tok.SEMI); }
- 	"then" 	{return token(tok.THEN); }
+ 	[Ss][Ee][Mm][Ii] 	{return token(tok.SEMI); }
+ 	[Tt][Hh][Ee][Nn] 	{return token(tok.THEN); }
  	"*" 	{return token(tok.TIMES); }
- 	"true" 	{return token(tok.TRUE); }
- 	"while" {return token(tok.WHILE);}
+ 	[Tt][Rr][Uu][Ee] 	{return token(tok.TRUE); }
+ 	[Ww][Hh][Ii][Ll][Ee] {return token(tok.WHILE);}
 
 
 
