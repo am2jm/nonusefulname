@@ -63,6 +63,26 @@
    "}" {return token(tok.RBRACE); }
    ";" {return token(tok.SEMI); }
    "~" {return token(tok.TILDE); }
+   "loop" {return token(tok.LOOP); }
+   "-" {return token(tok.MINUS); }
+   "new" {return token(tok.NEW); }
+   "not" {return token(tok.NOT); }
+   "of" {return token(tok.OF); }
+   "+" {return token(tok.PLUS);}
+   "pool" {return token(tok.POOL);}
+   "of" {return token(tok.OF);}
+   ")" {return token(tok.RPAREN);}
+   "semi" {return token(tok.SEMI); }
+   "String" {return token(tok.String); }
+   "then" {return token(tok.THEN); }
+   "*" {return token(tok.TIMES); }
+    "true" {return token(tok.TRUE); }
+    "type" {return token(tok.TYPE)}
+    "while" {return token(tok.WHILE)}
+    
+
+
+
 
 
    {Identifier} { return token(tok.IDENT, yytext()); }
