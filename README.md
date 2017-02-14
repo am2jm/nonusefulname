@@ -14,6 +14,13 @@ main.java (contains the main method)<br>
 Whitespace<br>
 Comments<br>
 Type - probably needs recursion or regex or something
+<br><br>
  {Type} { return token(tok.TYPE, yytext()); }
-<br><br> 
+<br>
  Type = [A-Z][_a-zA-Z]*
+ <br><br>
+  {String} { return token(tok.STRING, yytext()); }
+<br>
+ String = "[_ a-zA-Z]"
+ <br><br>
+ Instead of printing to a file, print to a file
