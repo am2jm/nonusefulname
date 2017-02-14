@@ -33,7 +33,7 @@
  IntegerLiteral = [0-9]+
  Type = [A-Z][a-zA-Z_0-9]*
  String = \"([^\\\"]|\\.)*\"
- 
+
  //SingleLineParen =[(][*].*[*][)]
  HypenComments = [-][-].*
  ParenComments = [(][*].*([*][)]){0, 1}
@@ -44,15 +44,18 @@
 <YYINITIAL> {
  	"@"     { return token(tok.AT); }
  	"case"  { return token(tok.CASE); }
- 	"class" { return token(tok.CLASS); }
+ 	[Cc][Ll][Aa][Ss][Ss] { return token(tok.CLASS); }
  	":"     { return token(tok.COLON); }
  	","     { return token(tok.COMMA); }
  	"/"     { return token(tok.DIVIDE); }
  	"."     { return token(tok.DOT); }
  	"else"  { return token(tok.ELSE); }
+  "Else"  { return token(tok.ELSE); }
  	"=" 	{ return token(tok.EQUALS); }
  	"esac" 	{return token(tok.ESAC); }
+  "Esac" 	{return token(tok.ESAC); }
  	"false" {return token(tok.FALSE); }
+  "False" {return token(tok.FALSE); }
  	"fi" 	{return token(tok.FI); }
  	"if" 	{return token(tok.IF); }
  	"in" 	{return token(tok.IN); }
@@ -95,17 +98,17 @@
 	{Type} 	{ return token(tok.TYPE, yytext()); }
 	{Identifier}	{ return token(tok.IDENT, yytext()); }
 	{IntegerLiteral}	{ return token(tok.INT, yytext()); }
-	
-	//{SingleLineParen}	{ 
+
+	//{SingleLineParen}	{
 	//	System.out.println("Why not!");
 	//}
 	{HypenComments} { /* ignore */ }
-	{ParenComments} { 
+	{ParenComments} {
 		if( !(yytext().contains("*)")) ){
 			//System.out.println("Does not have *)");
 			//System.out.println(yytext()+ ": was it:" + yyline+1);
 			yybegin(Comment);
-		}			
+		}
 	}
 
 	[ \t\n]  { /* ignore */ }
@@ -113,21 +116,21 @@
 
 
   <Comment>{
-  	[ \t\n]  { 
+  	[ \t\n]  {
 		//System.out.println("My text whitespace:" + yytext());
 		}
-    .*[*][)][ \t]* 	{ 
+    .*[*][)][ \t]* 	{
 		//System.out.println("My text return:" + yytext());
 		yybegin(YYINITIAL); }
-	[*].*	{ 
+	[*].*	{
 		//System.out.println("My text star:" + yytext() + ":end");
-		
+
 		}
-	(.*)+ 	{ 
+	(.*)+ 	{
 		//System.out.println("My text text:" + yytext() + ":end");
-		
+
 		}
-	
+
 	//s[\n]	{ yybegin(YYINITIAL); }
 	///* [^*](.*)+	{ yybegin(YYINITIAL); } */
 	///* fixes half of it breaks the other half */
