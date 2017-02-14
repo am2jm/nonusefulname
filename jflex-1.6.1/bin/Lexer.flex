@@ -106,7 +106,10 @@
 
   <Comment>{
   	[ \t\n]	{ /* ignore */ }
-    [*][)] 	{ yybegin(YYINITIAL); }
+    .*[*][)] 	{ yybegin(YYINITIAL); }
 	[*].*	{ /* ignore */ }
-	(.*)+	{ yybegin(YYINITIAL); }
+	
+	//s[\n]	{ yybegin(YYINITIAL); }
+	///* [^*](.*)+	{ yybegin(YYINITIAL); } */
+	///* fixes half of it breaks the other half */
 }
