@@ -102,8 +102,8 @@
 	{HypenComments} { /* ignore */ }
 	{ParenComments} { 
 		if( !(yytext().contains("*)")) ){
-			System.out.println("Does not have *)");
-			System.out.println(yytext()+ ": was it:" + yyline+1);
+			//System.out.println("Does not have *)");
+			//System.out.println(yytext()+ ": was it:" + yyline+1);
 			yybegin(Comment);
 		}			
 	}
