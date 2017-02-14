@@ -41,44 +41,44 @@
 // Section 3...lexical rules
 <YYINITIAL> {
  	"@"     { return token(tok.AT); }
- 	"case"     { return token(tok.CASE); }
- 	"class"     { return token(tok.CLASS); }
+ 	"case"  { return token(tok.CASE); }
+ 	"class" { return token(tok.CLASS); }
  	":"     { return token(tok.COLON); }
  	","     { return token(tok.COMMA); }
  	"/"     { return token(tok.DIVIDE); }
  	"."     { return token(tok.DOT); }
  	"else"  { return token(tok.ELSE); }
- 	"=" { return token(tok.EQUALS); }
- 	"esac" {return token(tok.ESAC); }
+ 	"=" 	{ return token(tok.EQUALS); }
+ 	"esac" 	{return token(tok.ESAC); }
  	"false" {return token(tok.FALSE); }
- 	"fi" {return token(tok.FI); }
- 	"if" {return token(tok.IF); }
- 	"in" {return token(tok.IN); }
- 	"inherits" {return token(tok.INHERITS); }
- 	"isvoid" {return token(tok.ISVOID); }
- 	"<-" {return token(tok.LARROW); }
- 	"{" {return token(tok.LBRACE); }
- 	"<=" {return token(tok.LE); }
- 	"let" {return token(tok.LET); }
- 	"(" {return token(tok.LPAREN); }
- 	"<" {return token(tok.LT); }
- 	"=>" {return token(tok.RARROW); }
- 	"}" {return token(tok.RBRACE); }
- 	";" {return token(tok.SEMI); }
- 	"~" {return token(tok.TILDE); }
- 	"loop" {return token(tok.LOOP); }
- 	"-" {return token(tok.MINUS); }
- 	"new" {return token(tok.NEW); }
- 	"not" {return token(tok.NOT); }
- 	"of" {return token(tok.OF); }
- 	"+" {return token(tok.PLUS);}
- 	"pool" {return token(tok.POOL);}
- 	"of" {return token(tok.OF);}
- 	")" {return token(tok.RPAREN);}
- 	"semi" {return token(tok.SEMI); }
- 	"then" {return token(tok.THEN); }
- 	"*" {return token(tok.TIMES); }
- 	"true" {return token(tok.TRUE); }
+ 	"fi" 	{return token(tok.FI); }
+ 	"if" 	{return token(tok.IF); }
+ 	"in" 	{return token(tok.IN); }
+ 	"inherits"	{return token(tok.INHERITS); }
+ 	"isvoid" 	{return token(tok.ISVOID); }
+ 	"<-" 	{return token(tok.LARROW); }
+ 	"{" 	{return token(tok.LBRACE); }
+ 	"<=" 	{return token(tok.LE); }
+ 	"let" 	{return token(tok.LET); }
+ 	"(" 	{return token(tok.LPAREN); }
+ 	"<" 	{return token(tok.LT); }
+ 	"=>" 	{return token(tok.RARROW); }
+ 	"}" 	{return token(tok.RBRACE); }
+ 	";" 	{return token(tok.SEMI); }
+ 	"~" 	{return token(tok.TILDE); }
+ 	"loop" 	{return token(tok.LOOP); }
+ 	"-" 	{return token(tok.MINUS); }
+ 	"new" 	{return token(tok.NEW); }
+ 	"not" 	{return token(tok.NOT); }
+ 	"of" 	{return token(tok.OF); }
+ 	"+" 	{return token(tok.PLUS);}
+ 	"pool" 	{return token(tok.POOL);}
+ 	"of" 	{return token(tok.OF);}
+ 	")" 	{return token(tok.RPAREN);}
+ 	"semi" 	{return token(tok.SEMI); }
+ 	"then" 	{return token(tok.THEN); }
+ 	"*" 	{return token(tok.TIMES); }
+ 	"true" 	{return token(tok.TRUE); }
  	"while" {return token(tok.WHILE);}
 
 
@@ -90,10 +90,10 @@
 		return token(tok.STRING, temp);
 	}
 
-	{Type} { return token(tok.TYPE, yytext()); }
-	{Identifier} { return token(tok.IDENT, yytext()); }
-	{IntegerLiteral} { return token(tok.INT, yytext()); }
-	{HypenComments} {}
+	{Type} 	{ return token(tok.TYPE, yytext()); }
+	{Identifier}	{ return token(tok.IDENT, yytext()); }
+	{IntegerLiteral}	{ return token(tok.INT, yytext()); }
+	{HypenComments} { /* ignore */ }
 	{ParenComments} { yybegin(Comment); }
 
 	[ \t\n]  { /* ignore */ }
@@ -101,5 +101,7 @@
 
 
   <Comment>{
-    [*][)]    {yybegin(YYINITIAL);}
+  	[ \t\n]	{ /* ignore */ }
+    [*][)] 	{ yybegin(YYINITIAL); }
+	\*.*	{ /* ignore */ }
 }
