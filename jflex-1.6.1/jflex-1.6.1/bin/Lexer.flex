@@ -81,7 +81,10 @@
 
 
 
-	{String} { return token(tok.STRING, yytext()); }
+	{String} {
+  String temp = yytext();
+  temp = temp.substring(1, temp.length()-1);
+  return token(tok.STRING, temp); }
 	{Type} { return token(tok.TYPE, yytext()); }
 	{Identifier} { return token(tok.IDENT, yytext()); }
 	{IntegerLiteral} { return token(tok.INT, yytext()); }

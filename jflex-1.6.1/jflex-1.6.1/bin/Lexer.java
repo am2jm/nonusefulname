@@ -799,7 +799,9 @@ class Lexer {
             }
           case 62: break;
           case 20: 
-            { return token(tok.STRING, yytext());
+            { String temp = yytext();
+  temp = temp.substring(1, temp.length()-1);
+  return token(tok.STRING, temp);
             }
           case 63: break;
           case 21: 
