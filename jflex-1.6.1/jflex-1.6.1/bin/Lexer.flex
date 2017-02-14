@@ -30,8 +30,9 @@
  // define some "macro" regular expressions
  Identifier = [a-z][_A-Za-z0-9]*
  IntegerLiteral = [0-9]+
- Type = [A-Z][a-zA-Z]*
+ Type = [A-Z][a-zA-Z_]*
  String = \"([^\\\"]|\\.)*\"
+ Comments = [-][-].*
 
 %%
 
@@ -45,7 +46,7 @@
    "/"     { return token(tok.DIVIDE); }
    "."     { return token(tok.DOT); }
    "else"  { return token(tok.ELSE); }
-   "equals" { return token(tok.EQUALS); }
+   "=" { return token(tok.EQUALS); }
    "esac" {return token(tok.ESAC); }
    "false" {return token(tok.FALSE); }
    "fi" {return token(tok.FI); }
@@ -88,6 +89,7 @@
 	{Type} { return token(tok.TYPE, yytext()); }
 	{Identifier} { return token(tok.IDENT, yytext()); }
 	{IntegerLiteral} { return token(tok.INT, yytext()); }
+  {Comments} {}
 
 	[ \t\n]  { /* ignore */ }
 }
