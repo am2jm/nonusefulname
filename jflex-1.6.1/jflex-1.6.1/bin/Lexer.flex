@@ -30,8 +30,8 @@
  // define some "macro" regular expressions
  Identifier = [a-z][_A-Za-z0-9]*
  IntegerLiteral = [0-9]+
- Type = [A-Z][a-zA-Z]* 
- String = "(.*?)"
+ Type = [A-Z][a-zA-Z]*
+ String = \"([^\\\"]|\\.)*\"
 
 %%
 
@@ -80,9 +80,9 @@
 
 
 
-	
-	{String} { return token(tok.STRING, yytext()); } 
-	{Type} { return token(tok.TYPE, yytext()); } 
+
+	{String} { return token(tok.STRING, yytext()); }
+	{Type} { return token(tok.TYPE, yytext()); }
 	{Identifier} { return token(tok.IDENT, yytext()); }
 	{IntegerLiteral} { return token(tok.INT, yytext()); }
 
