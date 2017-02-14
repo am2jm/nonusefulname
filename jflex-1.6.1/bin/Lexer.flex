@@ -33,6 +33,8 @@
  IntegerLiteral = [0-9]+
  Type = [A-Z][a-zA-Z_]*
  String = \"([^\\\"]|\\.)*\"
+ 
+ SingleLineParen =[(][*].*[*][)]
  HypenComments = [-][-].*
  ParenComments = [(][*]
 
@@ -93,6 +95,8 @@
 	{Type} 	{ return token(tok.TYPE, yytext()); }
 	{Identifier}	{ return token(tok.IDENT, yytext()); }
 	{IntegerLiteral}	{ return token(tok.INT, yytext()); }
+	
+	{SingleLineParen}	{ /* ignore */}
 	{HypenComments} { /* ignore */ }
 	{ParenComments} { yybegin(Comment); }
 
@@ -103,5 +107,6 @@
   <Comment>{
   	[ \t\n]	{ /* ignore */ }
     [*][)] 	{ yybegin(YYINITIAL); }
-	\*.*	{ /* ignore */ }
+	[*].*	{ /* ignore */ }
+	(.*)+	{ yybegin(YYINITIAL); }
 }
