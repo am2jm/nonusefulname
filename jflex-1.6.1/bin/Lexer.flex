@@ -31,7 +31,7 @@
  // define some "macro" regular expressions
  Identifier = [a-z][_A-Za-z0-9]*
  IntegerLiteral = [0-9]+
- Type = [A-Z][a-zA-Z_]*
+ Type = [A-Z][a-zA-Z_0-9]*
  String = \"([^\\\"]|\\.)*\"
  
  //SingleLineParen =[(][*].*[*][)]
