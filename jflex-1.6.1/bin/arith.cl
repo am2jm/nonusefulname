@@ -6,7 +6,7 @@
 
 class A {
 
-   var : Int <- 0;
+   var : Int <- 233333333333333333333333;
 
    value() : Int { var };
 

@@ -944,12 +944,12 @@ class Lexer {
             }
           case 73: break;
           case 25: 
-            { if( !(yytext().contains("*)")) ){
+            { //if( !(yytext().contains("*)")) ){
 			//System.out.println("Does not have *)");
 			//System.out.println(yytext()+ ": was it:" + yyline+1);
-			yybegin(Comment);
-		}
-    else
+		yybegin(Comment);
+		//}
+    //else
       //System.out.println("begin:"+yytext()+":end");
             }
           case 74: break;

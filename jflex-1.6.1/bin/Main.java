@@ -5,12 +5,14 @@ public class Main{
     public static void main(String[] args) throws IOException {
     	String filename = args[0];
 //		File f = new File(filename + "-lex");
-		
+    String tokens = "";
+    boolean myFlag = false;
+
 		File file = new File(filename + "-lex");
  		if (file.exists()){
      		file.delete();
  		}
-		
+
 		FileWriter fw = new FileWriter(filename+"-lex", true);
 		BufferedWriter bw = new BufferedWriter(fw);
 
@@ -19,6 +21,7 @@ public class Main{
 		// Always wrap FileReader in BufferedReader.
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 		String in = "";
+    boolean makeFile = true;
 		while((line = bufferedReader.readLine()) != null) {
 			in += line + "\n";
 		}
@@ -32,14 +35,26 @@ public class Main{
 					break;
 				else
 				{
-					System.out.println(t);
-					bw.write(t.toString());
-					bw.write("\n");
+					//System.out.println(t);
+					// bw.write(t.toString());
+					// bw.write("\n");
+          if(t.hadError()){
+            myFlag = true;
+            System.out.println("ERROR: " + t.getLine() + ": Lexer: invalid character:");
+            break;
+          }
+          else{
+          tokens += t.toString();
+          tokens += "\n";
+          }
 				}
 			}
 		} catch (Error e){
 			System.out.println(e.getMessage());
 		}
+    if(!myFlag){
+      bw.write(tokens);
+    }
 		bw.close();
     	bufferedReader.close();
           // Always close files.
