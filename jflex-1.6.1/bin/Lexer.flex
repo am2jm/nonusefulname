@@ -18,7 +18,7 @@
 
 %{
    // Code in here is copied verbatim into the Lexer class
-   
+
    int myCounter = 0;
 
  	private Token token(tok type) {
@@ -77,7 +77,6 @@
  	[Oo][Ff]	 		{return token(tok.OF); }
  	"+" 	{return token(tok.PLUS);}
  	[Pp][Oo][Oo][Ll]	{return token(tok.POOL);}
- 	[Oo][Ff]			{return token(tok.OF);}
  	")" 	{return token(tok.RPAREN);}
  	[Ss][Ee][Mm][Ii] 	{return token(tok.SEMI); }
  	[Tt][Hh][Ee][Nn] 	{return token(tok.THEN); }
@@ -105,15 +104,8 @@
 
 
 	"(*" {
-		//if( !(yytext().contains("*)")) ){
-			//System.out.println("Does not have *)");
-			//System.out.println(yytext()+ ": was it:" + yyline+1);
-			
 		myCounter = 0;
 		yybegin(Comment);
-		//}
-    //else
-      //System.out.println("begin:"+yytext()+":end");
 	}
 
 	[ \t\n]  { /* ignore */ }
@@ -125,35 +117,25 @@
   	[ \t\n]  {
 		//System.out.println("My text whitespace:" + yytext());
 		}
-		
+
 	"(*"	{
+  System.out.println("open: "+yytext());
+
 				myCounter ++;
-			
+
 			}
 	"*)" 	{
+  System.out.println("close: "+ yytext() + myCounter);
+
 				if(myCounter == 0)
 					yybegin(YYINITIAL);
 				else
 					myCounter --;
-			
+
 			}
-			
-	//[^\]*\)\(] { /* ignore */ }
-	[)]|[*]|[^*][^)] {}
-	
-    //.*[*][)] 	{
-		//System.out.println("My text return:" + yytext());
-	//	yybegin(YYINITIAL); }
-	//[*].*	{
-		//System.out.println("My text star:" + yytext() + ":end");
+	.|\s {
+    System.out.println("other: "+yytext());
+    /* ignore */
+  }
 
-	//	}
-	//(.*)+	{
-		//System.out.println("My text text:" + yytext() + ":end");
-
-	//	}
-
-	//s[\n]	{ yybegin(YYINITIAL); }
-	///* [^*](.*)+	{ yybegin(YYINITIAL); } */
-	///* fixes half of it breaks the other half */
 }
