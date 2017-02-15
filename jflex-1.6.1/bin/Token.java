@@ -27,7 +27,7 @@ public class Token {
         if(type.toString() == "integer"){
           String number = value.toString();
           try{
-            int temp = Integer.parseInt(number);
+            this.lexeme = Integer.parseInt(number);
 
           }catch(Exception e){
             // System.out.println(e);

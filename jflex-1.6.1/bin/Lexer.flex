@@ -141,7 +141,7 @@
 
         }
 	// an odd number of backslashes
-	//\\\\ {
+	// {
 	//	return token(tok.STRING, "Invalid String", true);
 	//	}
 		
@@ -161,6 +161,7 @@
           return token(tok.STRING, "Max String Length", true);
           }
       }
+	  
     \xa  {
         return token(tok.STRING, "Invalid String", true);
       }
