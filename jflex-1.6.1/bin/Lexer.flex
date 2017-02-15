@@ -113,16 +113,34 @@
 	}
 
 	[ \t\n\r\v\f]  { /* ignore */ }
+	
+	[^]	{ // catchall?
+		return token(tok.STRING, "Invalid Character", true);
+	
+		}
 }
 
   <StartString>{
+  <<EOF>> {
+		//System.out.println("ERROR: " + yyline + 1 +  ": Lexer: ");
+		return token(tok.STRING, "END OF FILE", true);
+		}
+  
   (\\\") {
             buildString += yytext();
-            if(buildString.length() >= Integer.MAX_VALUE){
+            if(buildString.length() >= 1024){
               return token(tok.STRING, "Max String Length", true);
             }
 
         }
+	// an odd number of backslashes
+	\\\\ {
+		return token(tok.STRING, "Invalid String", true);
+		}
+		
+	\x00 {
+		return token(tok.STRING, "Invalid String", true);
+		}
 
     \" {
         yybegin(YYINITIAL);
@@ -130,8 +148,9 @@
 
         }
     \\n {
+		// catches a typed newline
         buildString += yytext();
-        if(buildString.length() >= Integer.MAX_VALUE){
+        if(buildString.length() >= 1024){
           return token(tok.STRING, "Max String Length", true);
           }
       }
@@ -142,7 +161,7 @@
 
     .|\s {
         buildString += yytext();
-        if(buildString.length() >= Integer.MAX_VALUE){
+        if(buildString.length() >= 1024){
           return token(tok.STRING, "Max String Length", true);
         }
       }
@@ -152,6 +171,10 @@
 
   }
   <Comment>{
+  <<EOF>> {
+		//System.out.println("ERROR: " + yyline + 1 +  ": Lexer: ");
+		return token(tok.STRING, "END OF FILE", true);
+		}
 
   	[ \t\n]  {
 		//System.out.println("My text whitespace:" + yytext());

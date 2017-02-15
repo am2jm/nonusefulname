@@ -8,6 +8,8 @@ inherits
 1
 type
 IO
+1
+lbrace
 2
 identifier
 main
@@ -20,6 +22,10 @@ colon
 2
 type
 SELF_TYPE
+2
+lbrace
+3
+lbrace
 4
 identifier
 out_string
@@ -27,7 +33,7 @@ out_string
 lparen
 4
 string
-Hello, world.\n
+H\"ello, world.\n
 4
 rparen
 4
