@@ -119,7 +119,7 @@
 		yybegin(Comment);
 	}
 
-	[ \t\n\r\v\f]  { /* ignore */ }
+	[ \t\n\r\v\f\s]  { /* ignore */ }
 	
 	[^]	{ // catchall?
 		return token(tok.STRING, "Invalid Character", true);
@@ -140,10 +140,11 @@
             }
 
         }
-	// an odd number of backslashes
-	// {
-	//	return token(tok.STRING, "Invalid String", true);
-	//	}
+	// an odd number of backslashes4
+	[\\][\\][\"]
+	 {
+		return token(tok.STRING, "Invalid String", true);
+		}
 		
 	\x00 {
 		return token(tok.STRING, "Invalid String", true);
