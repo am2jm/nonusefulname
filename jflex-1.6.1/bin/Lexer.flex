@@ -119,7 +119,7 @@
 		yybegin(Comment);
 	}
 
-	[ \t\n\r\v\f\s]  { /* ignore */ }
+	[ \t\n\s]  { /* ignore */ }
 	
 	[^]	{ // catchall?
 		return token(tok.STRING, "Invalid Character", true);
@@ -132,11 +132,8 @@
 		//System.out.println("ERROR: " + yyline + 1 +  ": Lexer: ");
 		return token(tok.STRING, "END OF FILE", true);
 		}
-	// an odd number of backslashes4
-	[\\][\"]
-	 {
-		return token(tok.STRING, "Invalid String", true);
-		}
+		
+	
   
   (\\\") {
             buildString += yytext();
@@ -149,12 +146,21 @@
 	\x00 {
 		return token(tok.STRING, "Invalid String", true);
 		}
+		
+	\xd {
+		return token(tok.STRING, "Invalid String", true);
+		}
+		
+	\xa  {
+        return token(tok.STRING, "Invalid String", true);
+      }
 
     \" {
         yybegin(YYINITIAL);
         return token(tok.STRING, buildString);
-
+		
         }
+		
     \\n {
 		// catches a typed newline
         buildString += yytext();
@@ -163,9 +169,6 @@
           }
       }
 	  
-    \xa  {
-        return token(tok.STRING, "Invalid String", true);
-      }
 
 
     .|\s {
