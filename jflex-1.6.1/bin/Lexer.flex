@@ -141,7 +141,7 @@
 
         }
 	// an odd number of backslashes4
-	[\\][\\][\"]
+	[\\][\"]
 	 {
 		return token(tok.STRING, "Invalid String", true);
 		}
