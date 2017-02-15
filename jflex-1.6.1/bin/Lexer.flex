@@ -98,7 +98,14 @@
 
 
 	{Type} 	{ return token(tok.TYPE, yytext()); }
-	{Identifier}	{ return token(tok.IDENT, yytext()); }
+	{Identifier}	{ 
+			String temp = yytext();
+			int isZero = temp.indexOf("0");
+			if(temp.substring(0, 1).equals("0") && temp.length() > 1)
+				return token(tok.STRING, "Invalid Number", true);
+			else
+				return token(tok.IDENT, yytext());
+			}
 	{IntegerLiteral}	{ return token(tok.INT, yytext()); }
 
 	{SingleLineParen}	{
@@ -134,9 +141,9 @@
 
         }
 	// an odd number of backslashes
-	\\\\ {
-		return token(tok.STRING, "Invalid String", true);
-		}
+	//\\\\ {
+	//	return token(tok.STRING, "Invalid String", true);
+	//	}
 		
 	\x00 {
 		return token(tok.STRING, "Invalid String", true);
