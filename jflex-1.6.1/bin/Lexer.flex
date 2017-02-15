@@ -132,6 +132,11 @@
 		//System.out.println("ERROR: " + yyline + 1 +  ": Lexer: ");
 		return token(tok.STRING, "END OF FILE", true);
 		}
+	// an odd number of backslashes4
+	[\\][\"]
+	 {
+		return token(tok.STRING, "Invalid String", true);
+		}
   
   (\\\") {
             buildString += yytext();
@@ -140,11 +145,6 @@
             }
 
         }
-	// an odd number of backslashes4
-	[\\][\"]
-	 {
-		return token(tok.STRING, "Invalid String", true);
-		}
 		
 	\x00 {
 		return token(tok.STRING, "Invalid String", true);
