@@ -11,6 +11,7 @@ public class Token {
     private boolean hadError;
     private String message;
 
+    //modified token constructor for error handeling
     public Token(tok type, int line, String message, boolean error) {
       this.tokType = type;
       this.line = line;
@@ -18,19 +19,21 @@ public class Token {
       this.hadError = error;
     }
 
+    //modified token constructor
     public Token(tok type, int line, int col, Object value) {
         this.tokType = type;
         this.line = line;
         this.col = col;
         this.lexeme = value;
 
+        //check for int range error (int too large)
         if(type.toString() == "integer"){
           String number = value.toString();
           try{
             this.lexeme = Integer.parseInt(number);
 
           }catch(Exception e){
-            // System.out.println(e);
+
             this.message = "Max int length";
             hadError = true;
           }
@@ -38,6 +41,7 @@ public class Token {
         }
     }
 
+    //getters for private flag variables
     public boolean hadError(){
       return hadError;
     }
@@ -48,7 +52,7 @@ public class Token {
       return message;
     }
 
-
+//convert to string
     public String toString() {
         if(this.lexeme == null) {
             return this.line + "\n"+ this.tokType;

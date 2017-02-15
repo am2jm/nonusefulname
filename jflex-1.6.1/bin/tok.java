@@ -1,4 +1,6 @@
 public enum tok {
+
+  //all possible tokens in Cool
     AT("at"),
     CASE("case"),
     CLASS("class"),
@@ -44,10 +46,11 @@ public enum tok {
 
     private final String name;
 
+//setter
     private tok(String s) {
         this.name = s;
     }
-
+//convert to string
     public String toString() {
         return name;
     }

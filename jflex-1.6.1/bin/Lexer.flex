@@ -1,6 +1,5 @@
 /*
- * Simple Caclulater Lexer
- * Lexer.flex
+ * Cool Language Lexer
  */
 
 // section 1: user code copied verbatim
@@ -23,6 +22,8 @@
    int myCounter = 0;
    String buildString = "";
 
+
+   //types of tokens defined here
  	private Token token(tok type) {
  		return new Token(type, yyline+1, yycolumn+1, null);
  	}
@@ -35,13 +36,15 @@
 %}
 
  // define some "macro" regular expressions
+
+ //basic types
  Identifier = [a-z][_A-Za-z0-9]*
  IntegerLiteral = [0-9]+
  Type = [A-Z][a-zA-Z_0-9]*
 
+//two type of comments
  SingleLineParen =[(][*].*[*][)]
  HypenComments = [-][-].*
- //ParenComments = [(][*].*([*][)]){0, 1}
 
 %%
 
@@ -95,10 +98,9 @@
     }
 
 
-
-
+//
 	{Type} 	{ return token(tok.TYPE, yytext()); }
-	{Identifier}	{ 
+	{Identifier}	{
 			String temp = yytext();
 			int isZero = temp.indexOf("0");
 			if(temp.substring(0, 1).equals("0") && temp.length() > 1)
@@ -108,9 +110,7 @@
 			}
 	{IntegerLiteral}	{ return token(tok.INT, yytext()); }
 
-	{SingleLineParen}	{
-	//	System.out.println("Why not!");
-	}
+	{SingleLineParen}	{ /*ignore */ }
 	{HypenComments} { /* ignore */ }
 
 
@@ -120,10 +120,10 @@
 	}
 
 	[ \t\n\s]  { /* ignore */ }
-	
+
 	[^]	{ // catchall?
 		return token(tok.STRING, "Invalid Character", true);
-	
+
 		}
 }
 
@@ -132,9 +132,9 @@
 		//System.out.println("ERROR: " + yyline + 1 +  ": Lexer: ");
 		return token(tok.STRING, "END OF FILE", true);
 		}
-		
-	
-  
+
+
+
   (\\\") {
             buildString += yytext();
             if(buildString.length() >= 1024){
@@ -142,15 +142,15 @@
             }
 
         }
-		
+
 	\x00 {
 		return token(tok.STRING, "Invalid String", true);
 		}
-		
+
 	\xd {
 		return token(tok.STRING, "Invalid String", true);
 		}
-		
+
 	\xa  {
         return token(tok.STRING, "Invalid String", true);
       }
@@ -158,9 +158,9 @@
     \" {
         yybegin(YYINITIAL);
         return token(tok.STRING, buildString);
-		
+
         }
-		
+
     \\n {
 		// catches a typed newline
         buildString += yytext();
@@ -168,7 +168,7 @@
           return token(tok.STRING, "Max String Length", true);
           }
       }
-	  
+
 
 
     .|\s {
@@ -177,10 +177,6 @@
           return token(tok.STRING, "Max String Length", true);
         }
       }
-
-
-
-
   }
   <Comment>{
   <<EOF>> {
@@ -193,14 +189,10 @@
 		}
 
 	"(*"	{
-  //System.out.println("open: "+yytext());
-
 				myCounter ++;
 
 			}
 	"*)" 	{
-  //System.out.println("close: "+ yytext() + myCounter);
-
 				if(myCounter == 0)
 					yybegin(YYINITIAL);
 				else
