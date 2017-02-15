@@ -10,7 +10,11 @@
  c2i   Converts a 1-character string to an integer.  Aborts
  if the string is not "0" through "9"
  *)
+
+
 class A2I {
+    out_string("hello \"\\")
+    out_string("\n")
     
     c2i(char : String) : Int {
         if char = "0" then 0 else
@@ -30,7 +34,7 @@ class A2I {
     (*
      i2c is the inverse of c2i.
      *)
-    out_string("hello \"\\")
+    
     i2c(i : Int) : String {
         if i = 0 then "0" else
             if i = 1 then "1" else
@@ -47,12 +51,12 @@ class A2I {
     };
     
     (*
-     a2i converts an ASCII string into an integer.  The empty string
-     is converted to 0.  Signed and unsigned strings are handled.  The
+     (* a2i converts an ASCII string into an integer.  The empty string
+     is converted to 0.  --Signed and unsigned strings are handled.  The
      method aborts if the string does not represent an integer.  Very
      long strings of digits produce strange answers because of arithmetic
      overflow.
-     
+        *)
      *)
     a2i(s : String) : Int {
         if s.length() = 0 then 0 else
