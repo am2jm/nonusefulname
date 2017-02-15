@@ -40,7 +40,7 @@ public class Main{
 					// bw.write("\n");
           if(t.hadError()){
             myFlag = true;
-            System.out.println("ERROR: " + t.getLine() + ": Lexer: invalid character:");
+            System.out.println("ERROR: " + t.getLine() + ": Lexer: " + t.getMessage());
             break;
           }
           else{

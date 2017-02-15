@@ -9,6 +9,14 @@ public class Token {
     private tok tokType;
     private int line, col;
     private boolean hadError;
+    private String message;
+
+    public Token(tok type, int line, String message, boolean error) {
+      this.tokType = type;
+      this.line = line;
+      this.message = message;
+      this.hadError = error;
+    }
 
     public Token(tok type, int line, int col, Object value) {
         this.tokType = type;
@@ -23,6 +31,7 @@ public class Token {
 
           }catch(Exception e){
             // System.out.println(e);
+            this.message = "Max int length";
             hadError = true;
           }
 
@@ -35,6 +44,10 @@ public class Token {
     public int getLine(){
       return line;
     }
+    public String getMessage(){
+      return message;
+    }
+
 
     public String toString() {
         if(this.lexeme == null) {
