@@ -18,6 +18,8 @@
 
 %{
    // Code in here is copied verbatim into the Lexer class
+   
+   int myCounter = 0;
 
  	private Token token(tok type) {
  		return new Token(type, yyline+1, yycolumn+1, null);
@@ -106,6 +108,8 @@
 		//if( !(yytext().contains("*)")) ){
 			//System.out.println("Does not have *)");
 			//System.out.println(yytext()+ ": was it:" + yyline+1);
+			
+		myCounter = 0;
 		yybegin(Comment);
 		//}
     //else
@@ -117,20 +121,37 @@
 
 
   <Comment>{
+
   	[ \t\n]  {
 		//System.out.println("My text whitespace:" + yytext());
 		}
-    .*[*][)] 	{
+		
+	"(*"	{
+				myCounter ++;
+			
+			}
+	"*)" 	{
+				if(myCounter == 0)
+					yybegin(YYINITIAL);
+				else
+					myCounter --;
+			
+			}
+			
+	//[^\]*\)\(] { /* ignore */ }
+	[)]|[*]|[^*][^)] {}
+	
+    //.*[*][)] 	{
 		//System.out.println("My text return:" + yytext());
-		yybegin(YYINITIAL); }
-	[*].*	{
+	//	yybegin(YYINITIAL); }
+	//[*].*	{
 		//System.out.println("My text star:" + yytext() + ":end");
 
-		}
-	(.*)+	{
+	//	}
+	//(.*)+	{
 		//System.out.println("My text text:" + yytext() + ":end");
 
-		}
+	//	}
 
 	//s[\n]	{ yybegin(YYINITIAL); }
 	///* [^*](.*)+	{ yybegin(YYINITIAL); } */
